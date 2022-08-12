@@ -6,18 +6,33 @@ package graph
 import (
 	"context"
 	"fmt"
+	"log"
+	"math/rand"
 	"practice-graphql/graph/generated"
 	"practice-graphql/graph/model"
 )
 
 // CreateTodo is the resolver for the createTodo field.
 func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	panic(fmt.Errorf("not implemented"))
+	log.Println("Create todo.")
+	todo := &model.Todo{
+		ID:   fmt.Sprintf("T%d", rand.Int()),
+		Text: input.Text,
+		User: &model.User{
+			ID:   input.UserID,
+			Name: "saito",
+		},
+	}
+
+	r.todos = append(r.todos, todo)
+
+	return todo, nil
 }
 
 // Todos is the resolver for the todos field.
 func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	panic(fmt.Errorf("not implemented"))
+	log.Println("Get todo.")
+	return r.todos, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.

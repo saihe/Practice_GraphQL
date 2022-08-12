@@ -2,27 +2,34 @@
 
 ###
 
-# User
-## get
-GET {{baseurl}}/user
+# mutation
+POST {{baseurl}}/query
+Content-Type: application/json
 X-REQUEST-TYPE: GraphQL
 
-query ($name: String!, $owner: String!) {
-  repository(name: $name, owner: $owner) {
-    name
-    fullName: nameWithOwner
-    description
-    diskUsage
-    forkCount
-    stargazers(first: 5) {
-        totalCount
-        nodes {
-            login
-            name
-        }
+mutation createTodo {
+  createTodo(input: { text: "todo", userId: "1" }) {
+    user {
+      id
     }
-    watchers {
-        totalCount
+    text
+    done
+  }
+}
+
+###
+
+# query
+POST {{baseurl}}/query
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query findTodos {
+  todos {
+    text
+    done
+    user {
+      name
     }
   }
 }
