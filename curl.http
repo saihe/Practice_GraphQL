@@ -1,0 +1,28 @@
+@baseurl=http://localhost:8080
+
+###
+
+# User
+## get
+GET {{baseurl}}/user
+X-REQUEST-TYPE: GraphQL
+
+query ($name: String!, $owner: String!) {
+  repository(name: $name, owner: $owner) {
+    name
+    fullName: nameWithOwner
+    description
+    diskUsage
+    forkCount
+    stargazers(first: 5) {
+        totalCount
+        nodes {
+            login
+            name
+        }
+    }
+    watchers {
+        totalCount
+    }
+  }
+}
