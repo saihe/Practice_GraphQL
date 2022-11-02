@@ -9,5 +9,5 @@ FROM golang:1.18-alpine
 
 COPY --from=build /go/bin/app /
 
-EXPOSE 8080
+EXPOSE 80
 CMD ["/app"]
