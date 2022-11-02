@@ -33,13 +33,13 @@ jobs:
       id: meta
       uses: docker/metadata-action@v4
       with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
         context: .
         push: true
-        tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}
+        tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
   deploy:
     runs-on: ubuntu-latest
