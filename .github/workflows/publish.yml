@@ -37,7 +37,7 @@ jobs:
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
     - name: meta follow
-      run: full_name=${{ steps.meta.outputs.tags }}
+      run: echo '::set-output full_name=${{ steps.meta.outputs.tags }}'
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
