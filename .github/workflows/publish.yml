@@ -37,7 +37,7 @@ jobs:
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
     - name: meta follow
-      run: echo '::set-output full_name=${{ steps.meta.outputs.tags }}'
+      run: full_name=${{ steps.meta.outputs.tags }}
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
@@ -64,5 +64,5 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: 'ghcr.io/${{ needs.build-and-push-image.steps.outputs.full_name }}'
+          images: 'ghcr.io/${{ needs.build-and-push-image.outputs.full_name }}'
 
